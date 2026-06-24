@@ -11,9 +11,8 @@ tasteful motion.
 
 ## Structure
 ```
-index.html              Home — hero + interactive, draggable project grid
+index.html              Home — hero + interactive draggable project grid + client wall (#clients)
 about.html              About — story, facts, "Currently into"
-clients.html            Client wall
 contact.html            Contact
 projects/
   goons.html            01 · The Goons — brand identity
