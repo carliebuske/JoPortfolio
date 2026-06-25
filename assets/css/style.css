@@ -463,7 +463,7 @@ body.menu-open .menu__meta { opacity: 1; }
 /* Social / Instagram showcase */
 .social { display: grid; grid-template-columns: 1fr 0.85fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
 .social__media { justify-self: center; max-width: 330px; width: 100%; }
-.social__media img { width: 100%; display: block; border-radius: 14px; box-shadow: var(--shadow); }
+.social__media img, .social__media video { width: 100%; display: block; border-radius: 14px; box-shadow: var(--shadow); }
 @media (max-width: 900px) { .social { grid-template-columns: 1fr; } .social__media { order: -1; max-width: 300px; } }
 
 .next-proj { display: block; position: relative; padding-block: clamp(3rem,7vw,6rem); border-top: 1px solid var(--line); overflow: hidden; }
