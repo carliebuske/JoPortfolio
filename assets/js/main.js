@@ -264,6 +264,40 @@
     counters.forEach(c => c.textContent = c.dataset.count + (c.dataset.suffix || ""));
   }
 
+  /* ----------------------------------------------------- LIGHTBOX */
+  const zoomables = document.querySelectorAll(".set-grid img, .gallery .g img");
+  if (zoomables.length) {
+    const lb = document.createElement("div");
+    lb.className = "lightbox";
+    lb.innerHTML = '<button class="lightbox__close" aria-label="Close preview">×</button><img alt="">';
+    document.body.appendChild(lb);
+    const lbImg = lb.querySelector("img");
+    let lastFocus = null;
+    const open = (src, alt) => {
+      lbImg.src = src; lbImg.alt = alt || "";
+      lb.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    };
+    const close = () => {
+      lb.classList.remove("is-open");
+      document.body.style.overflow = "";
+      setTimeout(() => { lbImg.src = ""; }, 300);
+      if (lastFocus) lastFocus.focus && lastFocus.focus();
+    };
+    zoomables.forEach(img => {
+      img.style.cursor = "zoom-in";
+      img.addEventListener("click", (e) => {
+        e.stopPropagation();
+        lastFocus = img;
+        open(img.currentSrc || img.src, img.alt);
+      });
+    });
+    lb.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lb.classList.contains("is-open")) close();
+    });
+  }
+
   /* --------------------------------------------------- CURRENT YEAR */
   document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 })();
