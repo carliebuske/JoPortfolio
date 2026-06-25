@@ -100,7 +100,7 @@ h1, h2, h3, h4 { font-weight: 600; line-height: 1.04; letter-spacing: -0.01em; }
 
 /* ----------------------------- Layout ---------------------------------- */
 .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
-.section { padding-block: clamp(4.5rem, 9vw, 9rem); }
+.section { padding-block: clamp(4.5rem, 9vw, 9rem); scroll-margin-top: calc(var(--nav-h) + 1.5rem); }
 .lede { max-width: 46ch; color: var(--charcoal-soft); font-size: 1.06rem; }
 
 /* ----------------------------- Buttons --------------------------------- */

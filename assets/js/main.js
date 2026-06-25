@@ -265,7 +265,7 @@
   }
 
   /* ----------------------------------------------------- LIGHTBOX */
-  const zoomables = document.querySelectorAll(".set-grid img, .gallery .g img");
+  const zoomables = document.querySelectorAll(".set-grid img, .gallery .g img, .moodboard .mb img");
   if (zoomables.length) {
     const lb = document.createElement("div");
     lb.className = "lightbox";
@@ -296,6 +296,28 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && lb.classList.contains("is-open")) close();
     });
+  }
+
+  /* ----------------------------------------------- ANCHOR SCROLL FIX */
+  // Lazy-loaded images above an anchor shift the layout, so the browser's
+  // initial jump lands short. Re-scroll to the target until it settles.
+  if (location.hash.length > 1) {
+    let target = null;
+    try { target = document.querySelector(location.hash); } catch (e) { target = null; }
+    if (target) {
+      let stop = false, n = 0;
+      const onUser = () => { stop = true; };
+      const events = ["wheel", "touchmove", "keydown"];
+      const cleanup = () => events.forEach(ev => window.removeEventListener(ev, onUser));
+      events.forEach(ev => window.addEventListener(ev, onUser, { passive: true }));
+      const settle = () => {
+        if (stop) return cleanup();
+        target.scrollIntoView({ block: "start" });
+        if (++n < 12) setTimeout(settle, 150); else cleanup();
+      };
+      if (document.readyState === "complete") setTimeout(settle, 60);
+      else window.addEventListener("load", () => setTimeout(settle, 60));
+    }
   }
 
   /* --------------------------------------------------- CURRENT YEAR */
